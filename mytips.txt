@@ -1,2 +1,61 @@
+1. ====== инициализируем проект ============
+из папки с проектом выполняем команду
+git init
+получим ответ в консоли(терминале)"C:\Users\Acer\test-git>git init
+Initialized empty Git repository in C:/Users/Acer/test-git/.git/"
+и появится файл git (у меня написан просто git, без расширения)
+2. ====== сохранение состояния ====== 
+1)-если не нужно отправлять в git (например .idea, out), то добавим их в .gitignore 
+2)-допустим, хотим сохранить состояния не всего содержимого проекта, 
+а отельных папок и/или файлов, то выполняем команду:
+git add img/  (это указали папку img со всем содержимым (пустые папки git игнорирует))
+или/и
+git add file1.txt (это указали файл)
+проверить состояние git status
+3) git commit -m "test adding to git" (в кавычках описание добавления, 
+например "внес такие-то изменения")
+============ изменения ==============
+после внесения изменений в проект (я удалила pic1.txt и изменила file1.txt)
+получим в консоли 
+'Changes not staged for commit:
+  (use "git add/rm <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+        modified:   file1.txt
+        deleted:    img/pic1.txt'
 
-
+выполняю git add img/pic1.txt
+и git add file1.txt
+=========  ВНИМАНИЕ! ========== 
+если удалили файл/папку , то нужно сделать git add УДАЛЕННОГО файла
+3.====== Создали репозиторий в своем гит-аккаунте ====== 
+ввели команду
+git remote add origin https://github.com/PelseA/test-git.git, где
+'git remote add origin' - команда + 
++ 'https://github.com/PelseA/test-git.git' -это ваша ссылка на удаленный репозиторий
+origin - это имя базового(основного) удаленного 
+репозитория (git сам создает ему имя 'origin')
+4.====== выгрузим в удаленный репозиторий (на github, gitlab или др.) ====== 
+git push -u origin master
+====================Удаление случайно выложенных папок из github и истории========
+выполняем две команды
+команда1: git filter-branch --tree-filter "rm -rf out/" HEAD
+(out/ - это название папки со всем содержимым (я ее удаляю))
+в консоли получим: 'bla-bla <...>
+Rewrite 086336f1d615962f45fd40251eb6263beacf7610 (7/7) 
+(4 seconds passed, remaining 0 predicted)
+Ref 'refs/heads/master' was rewritten'
+
+команда2: git push origin master --force
+
+в консоли получим:'Enumerating objects: 29, done.
+Counting objects: 100% (29/29), done.
+Delta compression using up to 8 threads
+Compressing objects: 100% (21/21), done.
+Writing objects: 100% (26/26), 4.66 KiB | 1.55 MiB/s, done.
+Total 26 (delta 4), reused 0 (delta 0)
+remote: Resolving deltas: 100% (4/4), done.
+To https://github.com/PelseA/learningJava.git
+ + 086336f...2195c31 master -> master (forced update)'
+============================================================================
+
+
